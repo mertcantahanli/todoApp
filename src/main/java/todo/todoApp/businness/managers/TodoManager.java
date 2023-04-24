@@ -3,7 +3,7 @@ package todo.todoApp.businness.managers;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import todo.todoApp.Repositories.TodoRepository;
+import todo.todoApp.repositories.TodoRepository;
 import todo.todoApp.businness.dto.request.create.CreateTodoRequest;
 import todo.todoApp.businness.dto.request.update.UpdateTodoRequest;
 import todo.todoApp.businness.dto.response.create.CreateTodoResponse;
