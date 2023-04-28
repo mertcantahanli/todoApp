@@ -15,9 +15,9 @@ public interface CategoryService {
     CreateCategoryResponse add(CreateCategoryRequest request);
 
     List<GetAllCategoryResponse> getAll();
-    GetCategoryResponse getById(int id);
+    GetCategoryResponse getById(String id);
 
-    UpdateCategoryResponse update(int id, UpdateCategoryRequest request);
+    UpdateCategoryResponse update(String id, UpdateCategoryRequest request);
 
-   void delete(int id);
+   void delete(String id);
 }

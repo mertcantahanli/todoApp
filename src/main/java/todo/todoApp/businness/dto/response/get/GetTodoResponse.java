@@ -10,10 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetTodoResponse {
-    private int id;
+    private String id;
     private String content;
     private boolean state;
 
-    private int categoryId;
+    private String categoryId;
 
 }

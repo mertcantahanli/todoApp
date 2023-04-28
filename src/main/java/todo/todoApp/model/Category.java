@@ -1,4 +1,4 @@
-package todo.todoApp.entities;
+package todo.todoApp.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,12 +13,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "categories")
+
 
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String title;
     @OneToMany(mappedBy = "category")
     private List<Todo> todos;

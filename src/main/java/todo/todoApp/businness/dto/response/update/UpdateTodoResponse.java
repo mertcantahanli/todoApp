@@ -5,16 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateTodoResponse {
-    private int id;
+    private String id;
     private String content;
     private boolean state;
 
-    private int categoryId;
+    private List<String> categories;
 
 
 

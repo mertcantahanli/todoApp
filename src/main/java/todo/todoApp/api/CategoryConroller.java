@@ -25,7 +25,7 @@ public class CategoryConroller {
         return categoryService.getAll();
     }
     @GetMapping("/{id}")
-    public GetCategoryResponse getById(@PathVariable int id){
+    public GetCategoryResponse getById(@PathVariable String id){
         return categoryService.getById(id);
     }
 
@@ -35,11 +35,11 @@ public class CategoryConroller {
     }
 
     @PutMapping("/{id}")
-    public UpdateCategoryResponse update(@PathVariable int id, UpdateCategoryRequest request){
+    public UpdateCategoryResponse update(@PathVariable String id, UpdateCategoryRequest request){
         return categoryService.update(id,request);
     }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable String id){
         categoryService.delete(id);
     }
 }

@@ -23,7 +23,7 @@ public class TodoController {
         return todoService.getAll();
     }
     @GetMapping("/{id}")
-    public GetTodoResponse getById(@PathVariable int id){
+    public GetTodoResponse getById(@PathVariable String id){
         return todoService.getById(id);
     }
 
@@ -32,15 +32,15 @@ public class TodoController {
         return todoService.add(request);
     }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable String id){
         todoService.delete(id);
     }
     @PutMapping("/{id}")
-    public UpdateTodoResponse update(@PathVariable int id, UpdateTodoRequest request){
+    public UpdateTodoResponse update(@PathVariable String id, UpdateTodoRequest request){
         return todoService.update(id,request);
     }
     @PutMapping("/{id}/state")
-    public void changeState(@PathVariable int id){
+    public void changeState(@PathVariable String id){
        todoService.changeState(id);
     }
 }

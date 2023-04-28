@@ -13,10 +13,10 @@ public interface TodoService {
     List<GetAllTodoResponse> getAll();
     CreateTodoResponse add(CreateTodoRequest request);
 
-    GetTodoResponse getById(int id);
-    UpdateTodoResponse update(int id,UpdateTodoRequest request);
+    GetTodoResponse getById(String id);
+    UpdateTodoResponse update(String id,UpdateTodoRequest request);
 
-    void delete(int id);
+    void delete(String id);
 
-    void changeState(int id);
+    void changeState(String id);
 }

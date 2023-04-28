@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import todo.todoApp.entities.Category;
-import todo.todoApp.entities.Todo;
 
 @Getter
 @Setter
@@ -16,6 +14,8 @@ public class CreateTodoRequest {
 
     private String content;
     private boolean state;
-    private int categoryId;
+    private String categoryId;
+
+
 
 }
