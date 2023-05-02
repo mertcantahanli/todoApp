@@ -3,15 +3,11 @@ package todo.todoApp.businness.managers;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import todo.todoApp.repositories.CategoryRepository;
-import todo.todoApp.businness.dto.request.create.CreateCategoryRequest;
-import todo.todoApp.businness.dto.request.update.UpdateCategoryRequest;
-import todo.todoApp.businness.dto.response.create.CreateCategoryResponse;
-import todo.todoApp.businness.dto.response.get.GetAllCategoryResponse;
-import todo.todoApp.businness.dto.response.get.GetCategoryResponse;
-import todo.todoApp.businness.dto.response.update.UpdateCategoryResponse;
+import todo.todoApp.businness.dto.CategoryRequestDto;
+import todo.todoApp.businness.dto.CategoryResponseDto;
 import todo.todoApp.businness.services.CategoryService;
 import todo.todoApp.model.Category;
+import todo.todoApp.repositories.CategoryRepository;
 
 import java.util.List;
 
@@ -21,38 +17,38 @@ public class CategoryManager implements CategoryService {
     private final ModelMapper mapper;
     private final CategoryRepository repository;
     @Override
-    public List<GetAllCategoryResponse> getAll() {
+    public List<CategoryResponseDto> getAll() {
         List<Category> categories = repository.findAll();
-        List<GetAllCategoryResponse> response= categories.stream()
-                .map(category -> mapper.map(category,GetAllCategoryResponse.class))
+        List<CategoryResponseDto> response= categories.stream()
+                .map(category -> mapper.map(category,CategoryResponseDto.class))
                 .toList();
         return response;
     }
-    public GetCategoryResponse getById(String id){
+    public CategoryResponseDto getById(String id){
         checkIfCategoryExists(id);
         Category category = repository.findById(id).orElseThrow();
-        GetCategoryResponse response = mapper.map(category,GetCategoryResponse.class);
+        CategoryResponseDto response = mapper.map(category,CategoryResponseDto.class);
         return response;
     }
 
     @Override
-    public CreateCategoryResponse add(CreateCategoryRequest request) {
+    public CategoryResponseDto add(CategoryRequestDto request) {
         Category category = mapper.map(request,Category.class);
         checkIfTitleExist(request.getTitle());
 
         repository.save(category);
-        CreateCategoryResponse response = mapper.map(category ,CreateCategoryResponse.class);
+        CategoryResponseDto response = mapper.map(category ,CategoryResponseDto.class);
         return response;
     }
 
     @Override
-    public UpdateCategoryResponse update(String id, UpdateCategoryRequest request) {
+    public CategoryResponseDto update(String id, CategoryRequestDto request) {
         checkIfCategoryExists(id);
         checkIfTitleExist(request.getTitle());
         Category category = mapper.map(request,Category.class);
        category.setId(id);
        repository.save(category);
-       UpdateCategoryResponse response=mapper.map(category,UpdateCategoryResponse.class);
+        CategoryResponseDto response=mapper.map(category,CategoryResponseDto.class);
         return response;
     }
 

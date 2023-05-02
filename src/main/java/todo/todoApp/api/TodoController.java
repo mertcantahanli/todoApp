@@ -2,12 +2,8 @@ package todo.todoApp.api;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import todo.todoApp.businness.dto.request.create.CreateTodoRequest;
-import todo.todoApp.businness.dto.request.update.UpdateTodoRequest;
-import todo.todoApp.businness.dto.response.create.CreateTodoResponse;
-import todo.todoApp.businness.dto.response.get.GetAllTodoResponse;
-import todo.todoApp.businness.dto.response.get.GetTodoResponse;
-import todo.todoApp.businness.dto.response.update.UpdateTodoResponse;
+import todo.todoApp.businness.dto.TodoRequestDto;
+import todo.todoApp.businness.dto.TodoResponseDto;
 import todo.todoApp.businness.services.TodoService;
 
 import java.util.List;
@@ -19,16 +15,16 @@ public class TodoController {
     private final TodoService todoService;
 
     @GetMapping
-    public List<GetAllTodoResponse> findAll() {
+    public List<TodoResponseDto> findAll() {
         return todoService.getAll();
     }
     @GetMapping("/{id}")
-    public GetTodoResponse getById(@PathVariable String id){
+    public TodoResponseDto getById(@PathVariable String id){
         return todoService.getById(id);
     }
 
     @PostMapping
-    public CreateTodoResponse add(@RequestBody CreateTodoRequest request) {
+    public TodoResponseDto add(@RequestBody TodoRequestDto request) {
         return todoService.add(request);
     }
     @DeleteMapping("/{id}")
@@ -36,7 +32,7 @@ public class TodoController {
         todoService.delete(id);
     }
     @PutMapping("/{id}")
-    public UpdateTodoResponse update(@PathVariable String id, UpdateTodoRequest request){
+    public TodoResponseDto update(@PathVariable String id, TodoRequestDto request){
         return todoService.update(id,request);
     }
     @PutMapping("/{id}/state")

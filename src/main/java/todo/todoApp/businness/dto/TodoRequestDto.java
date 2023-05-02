@@ -1,22 +1,20 @@
-package todo.todoApp.businness.dto.response.create;
+package todo.todoApp.businness.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
+import java.util.List;
+
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateTodoResponse {
+public class TodoRequestDto {
 
-    private String id;
     private String content;
     private boolean state;
-
-    private String categoryId;
-
-
+    private List<String> categoryIds;
 
 }

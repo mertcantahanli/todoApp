@@ -3,18 +3,17 @@ package todo.todoApp.businness.managers;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import todo.todoApp.businness.dto.request.create.CreateTodoRequest;
-import todo.todoApp.businness.dto.request.update.UpdateTodoRequest;
-import todo.todoApp.businness.dto.response.create.CreateTodoResponse;
-import todo.todoApp.businness.dto.response.get.GetAllTodoResponse;
-import todo.todoApp.businness.dto.response.get.GetTodoResponse;
-import todo.todoApp.businness.dto.response.update.UpdateTodoResponse;
+import todo.todoApp.businness.dto.TodoRequestDto;
+import todo.todoApp.businness.dto.TodoResponseDto;
 import todo.todoApp.businness.services.TodoService;
+import todo.todoApp.model.Category;
 import todo.todoApp.model.Todo;
 import todo.todoApp.repositories.CategoryRepository;
 import todo.todoApp.repositories.TodoRepository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,41 +25,50 @@ public class TodoManager implements TodoService {
 
 
     @Override
-    public List<GetAllTodoResponse> getAll() {
+    public List<TodoResponseDto> getAll() {
         List<Todo> todos = repository.findAll();
-        List<GetAllTodoResponse> response= todos
+        List<TodoResponseDto> response= todos
                 .stream()
-                .map(todo -> mapper.map(todo,GetAllTodoResponse.class))
+                .map(todo -> mapper.map(todo,TodoResponseDto.class))
                 .toList();
         return response;
     }
 
     @Override
-    public CreateTodoResponse add(CreateTodoRequest request) {
-       Todo todo = mapper.map(request,Todo.class);
-       todo.setState(true);
+    public TodoResponseDto add(TodoRequestDto todoRequestDto) {
+        Todo todo =mapper.map(todoRequestDto,Todo.class);
 
 
-       repository.save(todo);
-       CreateTodoResponse response = mapper.map(todo ,CreateTodoResponse.class);
-       return response;
-    }
+        List<Category> categories = todoRequestDto.getCategoryIds().stream()
+                .map(categoryId -> categoryRepository.findById(categoryId))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+        todo.setCategories(categories);
 
-    @Override
-    public GetTodoResponse getById(String id) {
-        checkIfTodoExists(id);
-        Todo todo =repository.findById(id).orElseThrow();
-        GetTodoResponse response=mapper.map(todo,GetTodoResponse.class);
+        repository.save(todo);
+        TodoResponseDto response = mapper.map(todo , TodoResponseDto.class);
         return response;
     }
 
     @Override
-    public UpdateTodoResponse update(String id,UpdateTodoRequest request) {
+    public TodoResponseDto getById(String id) {
+        checkIfTodoExists(id);
+        Todo todo =repository.findById(id).orElseThrow();
+        
+        TodoResponseDto response=mapper.map(todo,TodoResponseDto.class);
+        return response;
+    }
+
+    @Override
+    public TodoResponseDto update(String id,TodoRequestDto request) {
         checkIfTodoExists(id);
         Todo todo = mapper.map(request,Todo.class);
         todo.setId(id);
+
+        // TODO: 2.05.2023 category listesi guncellenecek 
         repository.save(todo);
-        UpdateTodoResponse response = mapper.map(todo,UpdateTodoResponse.class);
+        TodoResponseDto response = mapper.map(todo,TodoResponseDto.class);
         return response;
     }
 

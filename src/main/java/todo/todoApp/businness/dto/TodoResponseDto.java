@@ -1,19 +1,20 @@
-package todo.todoApp.businness.dto.response.get;
+package todo.todoApp.businness.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import todo.todoApp.model.Category;
 
-@Getter
+import java.util.List;
+
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetTodoResponse {
+public class TodoResponseDto {
     private String id;
     private String content;
     private boolean state;
-
-    private String categoryId;
-
+    private List<Category> categories;
 }

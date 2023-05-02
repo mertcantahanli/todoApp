@@ -1,16 +1,15 @@
-package todo.todoApp.businness.dto.response.get;
+package todo.todoApp.businness.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetCategoryResponse {
-    private String id;
+public class CategoryRequestDto {
 
     private String title;
 }
