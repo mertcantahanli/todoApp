@@ -35,6 +35,12 @@ public class TodoController {
     public TodoResponseDto update(@PathVariable String id, TodoRequestDto request){
         return todoService.update(id,request);
     }
+    @PutMapping("/{id}/addCategory")
+    public void updateCategory(@PathVariable String id,TodoRequestDto request){
+        todoService.updateCategoryOfTodos(id,request);
+    }
+
+
     @PutMapping("/{id}/state")
     public void changeState(@PathVariable String id){
        todoService.changeState(id);

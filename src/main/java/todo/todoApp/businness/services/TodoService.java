@@ -11,8 +11,11 @@ public interface TodoService {
 
     TodoResponseDto getById(String id);
     TodoResponseDto update(String id,TodoRequestDto request);
+    void updateCategoryOfTodos(String id, TodoRequestDto request);
 
     void delete(String id);
+
+
 
     void changeState(String id);
 }

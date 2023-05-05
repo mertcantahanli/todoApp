@@ -66,10 +66,31 @@ public class TodoManager implements TodoService {
         Todo todo = mapper.map(request,Todo.class);
         todo.setId(id);
 
-        // TODO: 2.05.2023 category listesi guncellenecek 
         repository.save(todo);
+
         TodoResponseDto response = mapper.map(todo,TodoResponseDto.class);
         return response;
+    }
+
+    @Override
+    public void updateCategoryOfTodos(String id, TodoRequestDto request) {
+
+        Todo todo = repository.findById(id).orElseThrow();
+
+        List<Category> newCategories= request.getCategoryIds().stream()
+                .map(categoryId -> categoryRepository.findById(categoryId))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+
+        List<Category> existingCategories = todo.getCategories();
+
+        existingCategories.addAll(newCategories);
+
+        todo.setCategories(existingCategories);
+
+        repository.save(todo);
+
     }
 
 
